@@ -5,7 +5,11 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import Layout from './components/Layout';
+
+import Tags from './views/Tag';
+import Money from './views/Money';
+import Statistics from './views/Statistics';
+import NoMatch from './views/NotFind';
 
 
 export default function App() {
@@ -31,28 +35,6 @@ export default function App() {
     </Router>
   );
 }
-function NoMatch(){
-  return <div>你输入的地址不存在，请重新输入</div>
-}
-function Statistics() {
-  return(
-    <Layout>
-      <h2>statistics</h2>
-    </Layout>
-  )
-}
-
-function Tags() {
-  return (
-    <Layout>
-      <h2>label</h2>
-    </Layout>
 
 
-  )
-}
 
-function Money() {
-  return (
-    <Layout><h2>money</h2></Layout>)
-}
