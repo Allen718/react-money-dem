@@ -24,14 +24,19 @@ font-size: 24px;
       }
     }
   }`
-const CategorySection=()=>{
+type Props={
+  value:'-'|'+',
+onChange:(value:"+"|'-')=>void}
+
+ const CategorySection: React.FC<Props> = (props) =>{
   const CategoryMap={
     '-':'支出',
     '+':'收入'
   }
   type X=typeof CategoryMap
   type Y=keyof X
-  const [Category,setCategory]=useState('-')
+  // const [Category,setCategory]=useState('-')
+   const Category=props.value
   const [CategoryList]=useState<Y[]>(['-','+'])
   return(
   <Wrapper>
@@ -41,7 +46,7 @@ const CategorySection=()=>{
         className={
         Category===t?'selected':''
       } onClick={()=>{
-        setCategory(t)
+        props.onChange(t)
       }}>{CategoryMap[t]}</li>
     )}
 

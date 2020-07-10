@@ -44,20 +44,25 @@ flex-wrap: wrap;
   
   
 `;
-const TagsSection: React.FC = () => {
-  const [tags, setTags] = useState<string[]>(['外卖', '交通', '房租', '水果']);
-  const [selectedTags,setSelectedTags]=useState<string[]>([])
+type Props={
+ value: string[]
+  onChange:(tags:string[])=>void
+}
+const TagsSection: React.FC<Props> = (props) => {
+  const [tags,setTags]=useState(['外卖','水电','零食','房租','水果'])
+  // const [selectedTags,setSelectedTags]=useState<string[]>([])
+  const selectedTags=props.value
   const onAddTag=()=>{
    const tagName= window.prompt('请输入新增标签名')
     if(tagName!==null){
-     setTags([...tags,tagName])
+    setTags([...tags,tagName])
     }
   }
   const onToggleTags=(tag:string)=>{
     if(selectedTags.indexOf(tag)>=0){
-      setSelectedTags(selectedTags.filter(t=>t!==tag))
+     props.onChange(selectedTags.filter(t=>t!==tag))
     }else(
-      setSelectedTags([...selectedTags,tag])
+      props.onChange([...selectedTags,tag])
     )
   }
   const getClass = (tag: string) => selectedTags.indexOf(tag) >= 0 ? 'selected' : '';

@@ -1,16 +1,26 @@
 
-import React, {useState} from 'react';
+import React from 'react';
 import Wrapper from './numberpadsection/Wrapper';
 import generateOutput from './numberpadsection/generateOutput';
-const NumberPadSection=()=>{
-  const [Output,_setOutput]=useState('0')
+type Props={
+  value:number
+  onChange:(value:number)=>void
+  onOk?:()=>void}
+
+const NumberPadSection:React.FC<Props> =(props)=>{
+  // const [Output,_setOutput]=useState('0')
+  const Output=props.value.toString()
   const setOutput=(Output:string)=>{
+    let value
     if(Output.length>=16){
-      Output= Output.slice(0,16)
+   value= parseFloat(Output.slice(0,16))
     }else if(Output.length===0){
       Output='0'
+     value=0
+    }else{
+      value=parseFloat(Output)
     }
-    _setOutput(Output)
+   props.onChange(value)
   }
   const onClickButton=(e:React.MouseEvent)=>{
 const text=(e.target as HTMLButtonElement).textContent
@@ -18,8 +28,8 @@ const text=(e.target as HTMLButtonElement).textContent
       return
     }
     if (text === 'OK') {
-      // TODO
-      return;
+
+      return props.onOk
     }
     if ('0123456789.'.split('').concat(['删除', '清空']).indexOf(text) >= 0) {
       setOutput(generateOutput(text, Output));
