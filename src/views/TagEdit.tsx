@@ -20,7 +20,8 @@ width: 30px;
 height:30px;
 }
 }
->label{
+>div{
+label{
 display: flex;
 align-items: center;
 background: white;
@@ -34,35 +35,44 @@ input{
 }
 >div{
 >button{
-margin:20px 0;
+margin-top: 30px;
 }
 
 }
+}
+
 `
 
 const TagEdit:React.FC=()=>{
-  const {findTag,updateTag}=useTags()
+  const {findTag,updateTag,deleteTag}=useTags()
   let {id}=useParams();
   const tag=findTag(parseFloat(id))
+ const  onClickBack=()=>{
+    window.history.back()
+  }
+  const content=()=>{
+    return(<div>
+      <Input label='标签名'
+             type="text"
+             value={tag.name}
+             onChange={(e)=>{
+
+               updateTag(tag.id,{name:e.target.value})
+
+             }}/>
+      <Center>
+        <Button onClick={()=>{
+          deleteTag(tag.id)
+        }}>删除标签</Button>
+      </Center></div>)}
   return(
   <Layout>
     <header>
-      <Icon name="left"/>
+      <Icon name="left" onClick={onClickBack}/>
       <span>编辑标签</span>
       <Icon/>
     </header>
-     <Input label='标签名'
-            type="text"
-            value={tag.name}
-     onChange={(e)=>{
-       console.log(e.target.value)
-       updateTag(tag.id,{name:e.target.value})
-
-     }}/>
-            <Center>
-              <Button>删除标签</Button>
-            </Center>
-
+    {tag?content():<Center><div> 标签名不存在</div></Center>}
   </Layout>
   )
 }
