@@ -8,22 +8,14 @@ display: flex;
 flex-direction: column;
 `
 const Main=styled.main`
-
 flex-grow: 1;
 overflow: auto;
 `
 type Props={
   className?:string
-  scrollTop?:number
 }
 const Layout:React.FC<Props>=(props)=>{
   const mainRef=useRef<HTMLDivElement>(null)
-  useEffect(()=>{
-    setTimeout(()=>{
-      if(!mainRef.current){return}
-      mainRef.current.scrollTop=props.scrollTop!
-    },0)
-   },[props.scrollTop])
   return(
     <Wrapper>
       <Main className={props.className}
@@ -34,7 +26,5 @@ const Layout:React.FC<Props>=(props)=>{
     </Wrapper>
   )
 }
-Layout.defaultProps={
-  scrollTop:0
-}
+
 export default Layout

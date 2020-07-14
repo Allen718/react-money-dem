@@ -37,7 +37,7 @@ const Money: React.FC = () => {
 
  }
   return (
-    <MyLayout scrollTop={9999}>
+    <MyLayout >
       <CategorySection value={selected.category}
                        onChange={(value) => {onChange({category: value});}}
       />
