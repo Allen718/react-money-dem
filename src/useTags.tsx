@@ -1,6 +1,7 @@
 import {useEffect,  useState} from 'react';
 import createId from './lib/createId';
 import useUpdate from './hooks/useUpdate';
+
 const useTags = () => {
   const [tags, setTags] = useState<{ id: number, name: string }[]>([]);
   const findTag = (id: number) => {
@@ -26,6 +27,10 @@ const useTags = () => {
     },[] )
 
   useUpdate(() => {window.localStorage.setItem('tags', JSON.stringify(tags));}, [tags]);
+  const getTagName=(id:number)=>{
+  const tag=tags.filter(t=>t.id===id)[0].name
+    return tag?tag:''
+  }
   const findTagIndex = (id: number) => {
     let result = -1;
     for (let i = 0; i < tags.length; i++) {
@@ -54,6 +59,6 @@ const useTags = () => {
     // cloneTags.splice(index, 1);
     // setTags(cloneTags);
   };
-  return {tags, setTags, findTag, updateTag, deleteTag, findTagIndex, addTag};
+  return {tags, setTags, findTag, updateTag, deleteTag, findTagIndex, addTag,getTagName};
 };
 export default useTags;
