@@ -30,8 +30,11 @@ const Money: React.FC = () => {
   };
   const {addRecords}=useRecords()
  const onSubmit=()=>{
-    addRecords(selected)
-   setSelected(defaultForm)
+   if( addRecords(selected)){
+     window.alert('保存成功')
+     setSelected(defaultForm)
+   }
+
  }
   return (
     <MyLayout>

@@ -1,6 +1,6 @@
 import React from 'react';
 import useTags from '../useTags';
-import {useParams} from 'react-router-dom';
+import {useParams,useHistory} from 'react-router-dom';
 import Icon from '../components/Icon';
 import styled from 'styled-components';
 import Input from '../components/Input';
@@ -47,8 +47,9 @@ const TagEdit:React.FC=()=>{
   const {findTag,updateTag,deleteTag}=useTags()
   let {id}=useParams();
   const tag=findTag(parseFloat(id))
- const  onClickBack=()=>{
-    window.history.back()
+  const history=useHistory()
+ const onClickBack=()=>{
+    history.goBack()
   }
   const content=()=>{
     return(<div>
@@ -56,9 +57,7 @@ const TagEdit:React.FC=()=>{
              type="text"
              value={tag.name}
              onChange={(e)=>{
-
                updateTag(tag.id,{name:e.target.value})
-
              }}/>
       <Center>
         <Button onClick={()=>{

@@ -12,9 +12,13 @@ type NewrecordItem=Omit<RecordItem ,'createAt'>
 const useRecords=()=>{
   const[records,setRecords]=useState<RecordItem[]>([])
  const addRecords=(newRecord:NewrecordItem)=>{
+    if(newRecord.amount===0){
+      alert('请输入金额')
+      return false
+    }
  const record={...newRecord,createAt:new Date().toISOString()}
     setRecords([...records,record])
-   window.alert('添加成功')
+   return true
  }
  useEffect(()=>{
    setRecords(JSON.parse(localStorage.getItem('records')||'[]'))
