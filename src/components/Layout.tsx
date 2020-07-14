@@ -1,5 +1,5 @@
 import Nav from './Nav';
-import React, {useEffect, useRef} from 'react';
+import React, { useRef} from 'react';
 import styled from 'styled-components';
 const Wrapper=styled.div`
 

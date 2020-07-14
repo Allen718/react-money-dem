@@ -38,8 +38,8 @@ margin-right: auto;
 
 `;
 
-//
-function Statistics() {
+
+function Details() {
   const [category, setCategory] = useState<'+' | '-'>('-');
   const {records} = useRecords();
   const {getTagName} = useTags();
@@ -83,4 +83,4 @@ function Statistics() {
           );
           }
 
-          export default Statistics;
+          export default Details;
