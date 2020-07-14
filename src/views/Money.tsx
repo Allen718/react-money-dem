@@ -5,35 +5,40 @@ import {NumberPadSection} from '../money/NumberpadSection';
 import {NoteSection} from '../money/NoteSection';
 import {TagsSection} from 'money/TagsSection';
 import {CategorySection} from '../money/CategorySetion';
+import useRecords from '../hooks/useRecords';
+
+
 const MyLayout = styled(Layout)`
   display:flex;
   flex-direction: column;
 `;
 type Category = '+' | '-';
+
 const Money: React.FC = () => {
-  const [selected, setSelected] = useState({
+  const defaultForm={
     tags: [] as number[],
     notes: '',
     category: '-' as Category,
     amount: 0
 
-  });
+  }
+
+  const [selected, setSelected] = useState(defaultForm);
   type Selected = typeof selected
   const onChange = (obj: Partial<Selected>) => {
     setSelected({...selected, ...obj});
   };
+  const {addRecords}=useRecords()
+ const onSubmit=()=>{
+    addRecords(selected)
+   setSelected(defaultForm)
+ }
   return (
     <MyLayout>
       <CategorySection value={selected.category}
                        onChange={(value) => {onChange({category: value});}}
       />
-      {/*{selected.tags.join(',')}*/}
-      {/*<hr/>*/}
-      {/*{selected.notes}*/}
-      {/*<hr/>*/}
-      {/*{selected.category}*/}
-      {/*<hr/>*/}
-      {/*/!*{selected.amount}*!///测试代码*/}
+
       <TagsSection value={selected.tags}
                    onChange={(tags) => {
                      onChange({tags});
@@ -46,7 +51,9 @@ const Money: React.FC = () => {
       <NumberPadSection value={selected.amount}
                         onChange={(Output) => {
                           onChange({amount: Output});
-                        }}/>
+                        }}
+                        onOk={onSubmit}
+                       />
     </MyLayout>);
 };
 
