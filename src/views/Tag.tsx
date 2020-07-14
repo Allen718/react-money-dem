@@ -4,9 +4,16 @@ import useTags from '../useTags';
 import styled from 'styled-components';
 import Icon from '../components/Icon';
 import {Link} from 'react-router-dom';
+import Button from '../components/Button';
+import Center from '../components/Center';
 
-const TagList = styled.ol`
-  font-size: 16px; 
+const Content=styled.div`
+>nav{
+padding: 16px;
+background: blue;
+}
+>ol{
+font-size: 16px; 
   background:white;
   > li{
     //#e5e5e7
@@ -23,25 +30,30 @@ const TagList = styled.ol`
     
     }
   }
-`;
-const Nav=styled.nav`
-padding: 16px;
-background: blue;
+}
+>div{
+margin-top: 30px;
+}
 `
+
 function Tags() {
-const {tags}=useTags()
+const {tags,addTag}=useTags()
   return (
     <Layout>
-      <Nav><span>标签管理</span></Nav>
-      <TagList>
+      <Content>
+      <nav><span>标签管理</span></nav>
+      <ol>
         {tags.map(tag=>
           <li key={tag.id}>
             <Link to={"/tags/"+tag.id} >
-            <span className="oneLine">{tag.name}</span>
+            <span className="oneLine">{tag.name+tag.id}</span>
             <Icon name="right"/>
             </Link>
           </li>)}
-
-      </TagList>
+      </ol>
+      <Center>
+      <Button onClick={()=>{addTag()}}>新增</Button>
+      </Center>
+      </Content>
     </Layout>)}
     export default Tags
