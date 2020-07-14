@@ -19,7 +19,7 @@ const useTags = () => {
     localTags= [{id: createId(), name: '外卖'}, {id: createId(), name: '蔬菜'}, {
         id: createId(),
         name: '零食'
-      }, {id: createId(), name: '房租'}, {id: 5, name: '水果'}];
+      }, {id: createId(), name: '房租'}, {id:createId() , name: '水果'}];
 
     }
       setTags(localTags)
@@ -28,7 +28,8 @@ const useTags = () => {
 
   useUpdate(() => {window.localStorage.setItem('tags', JSON.stringify(tags));}, [tags]);
   const getTagName=(id:number)=>{
-  const tag=tags.filter(t=>t.id===id)[0].name
+  const tag=tags.filter(t=>t.id===id)[0]
+    console.log(tag)
     return tag?tag:''
   }
   const findTagIndex = (id: number) => {

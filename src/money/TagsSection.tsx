@@ -7,10 +7,11 @@ import useTags from '../useTags';
 const Wrapper = styled.section`
 padding: 15px 10px; 
 flex-grow: 1;
+flex-shrink: 1;
+overflow: auto;
 background: #FFFFFF; 
 >ol{
 display: flex;
-flex-direction: row;
 flex-wrap: wrap;
  >li { 
  margin-bottom: 20px;
