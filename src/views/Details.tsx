@@ -4,6 +4,7 @@ import {CategorySection} from '../money/CategorySetion';
 import useRecords, {RecordItem} from '../hooks/useRecords';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
+import Icon from '../components/Icon';
 
 const Item = styled.div`
 h3{
@@ -37,7 +38,21 @@ margin-right: auto;
 
 `;
 
+const ErrorWrapper=styled.div`
+display: flex;
+flex-direction: column;
+margin: 100px 0;
 
+>span{
+font-size: 18px;
+margin: 0 auto;
+}
+>.icon{
+margin: 10px auto;
+width: 50px;
+height:50px;
+}
+`
 function Details() {
   const [category, setCategory] = useState<'+' | '-'>('-');
   const {records} = useRecords();
@@ -57,10 +72,13 @@ function Details() {
     if (a[0] < b[0]) return 1;
     return 0;
   });
-console.log(array)
+
   return (
     <Layout>
       <CategorySection value={category} onChange={value => {setCategory(value);}}/>
+      {array.length<=0?<ErrorWrapper><span>当前暂无记录</span>
+      <Icon name={'错误'} />
+      </ErrorWrapper>:''}
         {array.map((x) =>
           <Item key={x[0]}>
             {<h3>{x[0]}</h3>}
