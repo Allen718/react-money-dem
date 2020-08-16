@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
-
 const Wrapper=styled.section` 
 
 font-size: 24px;
@@ -10,7 +9,7 @@ font-size: 24px;
     > li {
       width: 50%; 
       text-align:center;
-      padding: 12px 0;
+      padding:10px 0;
       position:relative;
       &.selected::after{
         content: '';
@@ -26,32 +25,33 @@ font-size: 24px;
   }`
 type Props={
   value:'-'|'+',
-onChange:(value:"+"|'-')=>void}
+  onChange:(value:"+"|'-')=>void}
+ const CategorySection: React.FC<Props> = (props) => {
+   const CategoryMap = {
+     '-': '支出',
+     '+': '收入'
+   }
+   type X = typeof CategoryMap
+   type Y = keyof X
+   // const [Category,setCategory]=useState('-')
+   const Category = props.value
+   const [CategoryList] = useState<Y[]>(['-', '+'])
+   return (
+     <Wrapper>
+       <ul>
+         {CategoryList.map(t =>
+           <li key={t}
+               className={
+                 Category === t ? 'selected' : ''
+               } onClick={() => {
+             props.onChange(t)
+           }}>{CategoryMap[t]}</li>
+         )}
+       </ul>
+     </Wrapper>)
+ }
 
- const CategorySection: React.FC<Props> = (props) =>{
-  const CategoryMap={
-    '-':'支出',
-    '+':'收入'
-  }
-  type X=typeof CategoryMap
-  type Y=keyof X
-  // const [Category,setCategory]=useState('-')
-   const Category=props.value
-  const [CategoryList]=useState<Y[]>(['-','+'])
-  return(
-  <Wrapper>
-    <ul>
-      {CategoryList.map(t=>
-      <li key={t}
-        className={
-        Category===t?'selected':''
-      } onClick={()=>{
-        props.onChange(t)
-      }}>{CategoryMap[t]}</li>
-    )}
 
-    </ul>
-  </Wrapper>
-  )
-}
+
+
 export {CategorySection}

@@ -4,6 +4,7 @@ import React from 'react';
 import Icon from './Icon';
 
 
+
 const NavWrapper = styled.nav`
 background-color: white ;
 line-height:24px;
@@ -43,9 +44,6 @@ const Nav = () => {
         </li>
         <li>
           <NavLink to="/money" activeClassName="selected"><Icon name={'money'}/>记账</NavLink>
-        </li>
-        <li>
-          <NavLink to="/statistics" activeClassName="selected"><Icon name={'statistics'}/>统计</NavLink>
         </li>
         <li>
           <NavLink to="/details" activeClassName="selected"><Icon name={'details'}/>明细</NavLink>

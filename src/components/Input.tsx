@@ -7,7 +7,7 @@ display:flex;
     > input {
       display:block;
       width: 100%;
-      height: 50px;
+      height: 40px;
       background: none;
       border: none;
     }

@@ -2,7 +2,7 @@
 import {useEffect, useState} from 'react';
 import useUpdate from './useUpdate';
  export type RecordItem={
-  tags:  number[],
+  tags:  string[],
   notes: string
   category: '+'|"-"
   amount: number

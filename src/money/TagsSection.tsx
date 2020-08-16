@@ -51,30 +51,29 @@ flex-wrap: wrap;
   
 `;
 type Props={
- value: number[]
-  onChange:(tags:number[])=>void
+ value: string[]
+  onChange:(tags:string[])=>void
 }
 const TagsSection: React.FC<Props> = (props) => {
   const{tags,addTag}=useTags()
-
   const selectedTagIds=props.value
   const onAddTag=()=>{
   addTag()
   }
-  const onToggleTags=(tagId:number)=>{
-    if(selectedTagIds.indexOf(tagId)>=0){
-     props.onChange(selectedTagIds.filter(t=>t!==tagId))
+  const onToggleTags=(tagName:string)=>{
+    if(selectedTagIds.indexOf(tagName)>=0){
+     props.onChange(selectedTagIds.filter(t=>t!==tagName))
     }else(
-      props.onChange([...selectedTagIds,tagId])
+      props.onChange([...selectedTagIds,tagName])
     )
   }
-  const getClass = (tag: {id:number,name:string}) => selectedTagIds.indexOf(tag.id) >= 0 ? 'selected' : '';
+  const getClass = (tag: {id:number,name:string}) => selectedTagIds.indexOf(tag.name) >= 0 ? 'selected' : '';
   return (
     <Wrapper>
       <ol>
         {tags.map(tag=>
           <li  key={tag.id}
-            onClick={()=>{onToggleTags(tag.id)}} >
+            onClick={()=>{onToggleTags(tag.name)}} >
             <div  className={getClass(tag)}  >
               <Icon name={tag.name} />
             </div>

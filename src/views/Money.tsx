@@ -6,6 +6,8 @@ import {NoteSection} from '../money/NoteSection';
 import {TagsSection} from 'money/TagsSection';
 import {CategorySection} from '../money/CategorySetion';
 import useRecords from '../hooks/useRecords';
+import {Date} from '../components/Date';
+import dayjs from 'dayjs';
 
 
 const MyLayout = styled(Layout)`
@@ -16,18 +18,18 @@ type Category = '+' | '-';
 
 const Money: React.FC = () => {
   const defaultForm={
-    tags: [] as number[],
+    tags: [] as string[],
     notes: '',
     category: '-' as Category,
-    amount: 0
-
+    amount: 0,
+    createAt:dayjs().format('YYYY-MM-DD')  as string
   }
-
   const [selected, setSelected] = useState(defaultForm);
   type Selected = typeof selected
   const onChange = (obj: Partial<Selected>) => {
     setSelected({...selected, ...obj});
   };
+
   const {addRecords}=useRecords()
  const onSubmit=()=>{
    if( addRecords(selected)){
@@ -39,14 +41,15 @@ const Money: React.FC = () => {
   return (
     <MyLayout >
       <CategorySection value={selected.category}
-                       onChange={(value) => {onChange({category: value});}}
-      />
+                       onChange={(value) => {onChange({category: value})}}/>
 
-      <TagsSection value={selected.tags}
+       <TagsSection value={selected.tags}
                    onChange={(tags) => {
                      onChange({tags});
                    }
                    }/>
+      <Date value={selected.createAt}
+            onChange={(value)=>{onChange({createAt:value})}}/>
       <NoteSection value={selected.notes
       } onChange={(value) => {
         onChange({notes: value});

@@ -2,7 +2,6 @@ import Layout from '../components/Layout';
 import React, {useState} from 'react';
 import {CategorySection} from '../money/CategorySetion';
 import useRecords, {RecordItem} from '../hooks/useRecords';
-import useTags from '../useTags';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
 
@@ -42,7 +41,6 @@ margin-right: auto;
 function Details() {
   const [category, setCategory] = useState<'+' | '-'>('-');
   const {records} = useRecords();
-  const {getTagName} = useTags();
   const hash: { [key: string]: RecordItem[] } = {};
   const selectedRecords = records.filter(record => record.category === category);
   selectedRecords.forEach(item => {
@@ -50,9 +48,7 @@ function Details() {
       if (!(key in hash)) {
         hash[key] = [];
       }
-      hash[key].push(item);
-
-    }
+      hash[key].push(item);    }
   );
 
   const array = Object.entries(hash).sort((a, b) => {
@@ -61,6 +57,7 @@ function Details() {
     if (a[0] < b[0]) return 1;
     return 0;
   });
+console.log(array)
   return (
     <Layout>
       <CategorySection value={category} onChange={value => {setCategory(value);}}/>
@@ -69,13 +66,12 @@ function Details() {
             {<h3>{x[0]}</h3>}
             {x[1].map(r =>
               <div key={r.createAt}>
-                {r.tags.length>0 ? r.tags.map(tagId =>
-                  <span key={tagId}>{getTagName(tagId)}</span>
+                {r.tags.length>0 ? r.tags.map(tagName =>
+                <span key={tagName}>{tagName}</span>
                 ): <span>其他</span>}
                 {r.notes && <span className="note">{r.notes}</span>}
                 {<span>￥{r.amount}</span>}
               </div>)}
-
           </Item>)
         }
 
